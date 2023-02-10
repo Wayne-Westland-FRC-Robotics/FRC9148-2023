@@ -42,8 +42,8 @@ public class RobotContainer {
     m_opController.x().whileTrue(new ActuateClaw(0, m_clawSubsystem));
     m_opController.y().whileTrue(new ActuateClaw(1, m_clawSubsystem));
 
-    m_opController.leftTrigger().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
-    m_opController.rightTrigger().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
+    m_opController.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
+    m_opController.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
   }
 
   public boolean goingForCharge() {
