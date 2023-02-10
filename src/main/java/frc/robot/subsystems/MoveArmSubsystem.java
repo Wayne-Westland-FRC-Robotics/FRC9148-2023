@@ -17,6 +17,8 @@ public class MoveArmSubsystem extends SubsystemBase {
 
   private final RelativeEncoder encoder = bendArmMotor.getEncoder(); 
 
+  public RelativeEncoder getEncoder(int index) { return encoder; }
+
   public void bend(Double speed) {
     // Limit arm rotation :
     if ((encoder.getPosition() < 0 && speed<0) || (encoder.getPosition() > ArmConstants.ARM_BEND_RADIUS_ENCODER && speed>=0)) {

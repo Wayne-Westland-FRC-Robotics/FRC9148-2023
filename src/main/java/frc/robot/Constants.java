@@ -55,5 +55,8 @@ public final class Constants {
 
     public final static double kP = 0.000366;
     public final static double kD = 0;
+
+    public final static double ARM_UPPER_POSITION = 0;
+    public final static double ARM_LOWER_POSITION = 120;
   }
 }
