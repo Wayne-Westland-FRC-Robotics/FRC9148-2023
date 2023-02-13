@@ -28,7 +28,10 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!m_locked.getAsBoolean() || !m_canLock.getAsBoolean()) m_drivetrain.drive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
+    // If locked and can lock, dont drive.
+    if (!(m_canLock.getAsBoolean() && m_locked.getAsBoolean())) {
+      m_drivetrain.drive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
+    }
   }
   // Called once the command ends or is interrupted.
   @Override

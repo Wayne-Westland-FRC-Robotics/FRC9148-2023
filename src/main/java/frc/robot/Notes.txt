@@ -1,0 +1,5 @@
+* Have driver hold down a button for auto balance
+* If ultrasonic detects a distance over the height of a balanced harging station, turn the motors on BRAKE.
+* Check whether to use ps4 interface or xbox interface controller.
+* Figure out which buttons should do what.
+* 
