@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -14,28 +13,21 @@ public class DefaultDrive extends CommandBase {
   private final DoubleSupplier m_leftSpeed;
   private final DoubleSupplier m_rightSpeed;
   private final DrivetrainSubsystem m_drivetrain;
-  private final BooleanSupplier m_locked;
-  private final BooleanSupplier m_canLock;
-  public DefaultDrive(DrivetrainSubsystem drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed, BooleanSupplier locked, BooleanSupplier canLock) {
+  public DefaultDrive(DrivetrainSubsystem drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
     m_leftSpeed = leftSpeed;
     m_rightSpeed = rightSpeed;
     m_drivetrain = drivetrain;
-    m_locked = locked;
-    m_canLock = canLock;
     addRequirements(m_drivetrain);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // If locked and can lock, dont drive.
-    if (!(m_canLock.getAsBoolean() && m_locked.getAsBoolean())) {
-      m_drivetrain.drive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
-    }
+    m_drivetrain.drive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.drive(0.0, 0.0);
+    m_drivetrain.drive(0.0);
   }
 }

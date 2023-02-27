@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,8 +20,10 @@ import frc.robot.Constants.UltrasonicConstants;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
+
+  //Accelerometer (Gyro)
+  private BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
 
   // Ultrasonics:
   public AnalogPotentiometer m_ultrasonicFL = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_FRONT_LEFT);
@@ -28,6 +31,9 @@ public class Robot extends TimedRobot {
   public AnalogPotentiometer m_ultrasonicBL = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_BACK_LEFT);
   public AnalogPotentiometer m_ultrasonicBR = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_BACK_RIGHT);
 
+  public Double getRobotTilt() {
+    return Math.asin(accelerometer.getY()*180/Math.PI);
+  }
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -98,8 +104,8 @@ public class Robot extends TimedRobot {
   }
 
   public boolean getUltra() {
-    return ((m_ultrasonicFL.get()+m_ultrasonicFR.get())/2 <= UltrasonicConstants.ULTRASONIC_LIMIT || 
-            (m_ultrasonicBL.get()+m_ultrasonicBR.get())/2 <= UltrasonicConstants.ULTRASONIC_LIMIT );
+    return ((m_ultrasonicFL.get()+m_ultrasonicFR.get())/2 >= UltrasonicConstants.ULTRASONIC_LIMIT || 
+            (m_ultrasonicBL.get()+m_ultrasonicBR.get())/2 >= UltrasonicConstants.ULTRASONIC_LIMIT );
   }
 
   @Override

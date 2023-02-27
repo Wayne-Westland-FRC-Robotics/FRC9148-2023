@@ -49,14 +49,24 @@ public final class Constants {
   }
 
   public static class ControlSystemConstants {
-    public final static double kS = 0.071297;
-    public final static double kV = 0.0001291;
-    public final static double kA = 0.019404;
+    public final static double kSArm = 0.071297;
+    public final static double kVArm = 0.0001291;
+    public final static double kAArm = 0.019404;
 
-    public final static double kP = 0.000366;
-    public final static double kD = 0;
+    public final static double kPArm = 0.000366;
+    public final static double kDArm = 0;
+    // pid balance
+    public final static double kSBal = 0;
+    public final static double kVBal = 0;
+    public final static double kABal = 0;
+
+    public final static double kPBal = 0;
+    public final static double kDBal = 0;
 
     public final static double ARM_UPPER_POSITION = 0;
     public final static double ARM_LOWER_POSITION = 120;
+    // non-pid balance
+    public final static double BALANCE_TILT_LIMIT = 10; // This is in degrees.
+    public final static double BALANCE_SPEED = 0.07; // Speed of the robot when trying to balance
   }
 }

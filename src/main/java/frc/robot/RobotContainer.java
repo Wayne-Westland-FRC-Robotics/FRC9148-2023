@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.ContainerConstants;
 import frc.robot.commands.ActuateClaw;
+import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.BendArm;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.SlideArm;
@@ -30,12 +31,14 @@ public class RobotContainer {
   public RobotContainer(Robot robot) {
     m_robot = robot;
     m_drivetrain.setDefaultCommand(
-      new DefaultDrive(m_drivetrain, m_drController::getLeftX, m_drController::getRightY, m_robot::getUltra, this::goingForCharge)
+      new DefaultDrive(m_drivetrain, m_drController::getLeftX, m_drController::getRightY)
     );
     configureBindings();
   }
 
   private void configureBindings() {
+    m_drController.povDown().whileTrue(new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra));
+
     m_opController.a().whileTrue(new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
     m_opController.b().whileTrue(new BendArm(-ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
 
@@ -44,10 +47,6 @@ public class RobotContainer {
 
     m_opController.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
     m_opController.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
-  }
-
-  public boolean goingForCharge() {
-    return m_opController.povDown().getAsBoolean();
   }
 
   public Command getAutonomousCommand() {

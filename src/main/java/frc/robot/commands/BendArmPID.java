@@ -26,9 +26,9 @@ public class BendArmPID extends CommandBase {
   */
   
   private final PIDController pidController1 = new PIDController(
-    ControlSystemConstants.kP,
+    ControlSystemConstants.kPArm,
     0,
-    ControlSystemConstants.kD
+    ControlSystemConstants.kDArm
   );
   public BendArmPID(MoveArmSubsystem moveArmSubsystem, Boolean goTop) {
     m_moveArmSubsystem = moveArmSubsystem;
@@ -53,7 +53,7 @@ public class BendArmPID extends CommandBase {
     m_moveArmSubsystem.bend(0.0);
   }
 
-  public double calc(RelativeEncoder encoder, Boolean goTop) {
+  private double calc(RelativeEncoder encoder, Boolean goTop) {
     return pidController1.calculate(
       encoder.getPosition(), (goTop ? ControlSystemConstants.ARM_UPPER_POSITION : ControlSystemConstants.ARM_LOWER_POSITION)
     );// + feedforward.calculate(speed);
