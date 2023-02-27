@@ -104,8 +104,11 @@ public class Robot extends TimedRobot {
   }
 
   public boolean getUltra() {
-    return ((m_ultrasonicFL.get()+m_ultrasonicFR.get())/2 >= UltrasonicConstants.ULTRASONIC_LIMIT || 
-            (m_ultrasonicBL.get()+m_ultrasonicBR.get())/2 >= UltrasonicConstants.ULTRASONIC_LIMIT );
+    return 
+      m_ultrasonicFR.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ||
+      m_ultrasonicFL.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ||
+      m_ultrasonicBR.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ||
+      m_ultrasonicBL.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ;
   }
 
   @Override
