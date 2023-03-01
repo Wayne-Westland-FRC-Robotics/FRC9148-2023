@@ -11,10 +11,10 @@ import edu.wpi.first.math.controller.PIDController;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ControlSystemConstants;
-import frc.robot.subsystems.MoveArmSubsystem;
+import frc.robot.subsystems.BendArmSubsystem;
 
 public class BendArmPID extends CommandBase {
-  private final MoveArmSubsystem m_moveArmSubsystem;
+  private final BendArmSubsystem m_moveArmSubsystem;
   private final Boolean m_goTop;
 
   /* 
@@ -30,7 +30,7 @@ public class BendArmPID extends CommandBase {
     0,
     ControlSystemConstants.kDArm
   );
-  public BendArmPID(MoveArmSubsystem moveArmSubsystem, Boolean goTop) {
+  public BendArmPID(BendArmSubsystem moveArmSubsystem, Boolean goTop) {
     m_moveArmSubsystem = moveArmSubsystem;
     m_goTop = goTop;
     addRequirements(m_moveArmSubsystem);

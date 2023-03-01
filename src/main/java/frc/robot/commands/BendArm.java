@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.MoveArmSubsystem;
+import frc.robot.subsystems.BendArmSubsystem;
 
 public class BendArm extends CommandBase {
   private final Double m_speed;
-  private final MoveArmSubsystem m_armSubsystem;
+  private final BendArmSubsystem m_armSubsystem;
 
-  public BendArm(Double speed, MoveArmSubsystem armSubsystem) {
+  public BendArm(Double speed, BendArmSubsystem armSubsystem) {
     m_speed = speed;
     m_armSubsystem = armSubsystem;
     addRequirements(m_armSubsystem);

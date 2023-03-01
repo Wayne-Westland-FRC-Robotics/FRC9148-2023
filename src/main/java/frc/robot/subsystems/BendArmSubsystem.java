@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
-public class MoveArmSubsystem extends SubsystemBase {
+public class BendArmSubsystem extends SubsystemBase {
   private final CANSparkMax bendArmMotor = new CANSparkMax(ArmConstants.BEND_ARM_MOTOR_ID, MotorType.kBrushless);
 
   private final RelativeEncoder encoder = bendArmMotor.getEncoder(); 

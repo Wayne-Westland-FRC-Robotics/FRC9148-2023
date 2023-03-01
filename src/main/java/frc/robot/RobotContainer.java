@@ -12,7 +12,7 @@ import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.SlideArm;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.MoveArmSubsystem;
+import frc.robot.subsystems.BendArmSubsystem;
 import frc.robot.subsystems.SlideArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -21,7 +21,7 @@ public class RobotContainer {
   private final Robot m_robot;
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
-  private final MoveArmSubsystem m_armBendSubsystem = new MoveArmSubsystem();
+  private final BendArmSubsystem m_armBendSubsystem = new BendArmSubsystem();
   private final SlideArmSubsystem m_armSlideSubystem = new SlideArmSubsystem();
   private final ClawSubsystem m_clawSubsystem = new ClawSubsystem();
 
