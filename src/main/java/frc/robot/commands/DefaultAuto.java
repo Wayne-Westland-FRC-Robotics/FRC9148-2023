@@ -18,7 +18,7 @@ public class DefaultAuto extends SequentialCommandGroup {
     addRequirements(m_drivetrain);
 
     addCommands(
-      new DefaultDrive(m_drivetrain, ()->0.05, ()->0.05).withTimeout(3)
+      new TankDrive(m_drivetrain, ()->0.05, ()->0.05).withTimeout(3)
     );
   }
 }

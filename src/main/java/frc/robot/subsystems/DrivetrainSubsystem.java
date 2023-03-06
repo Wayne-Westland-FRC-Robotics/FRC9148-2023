@@ -36,11 +36,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-  public void drive(Double leftSpeed, Double rightSpeed) {
+  public void tankDrive(Double leftSpeed, Double rightSpeed) {
     m_drive.tankDrive(leftSpeed, rightSpeed);
   }
-  public void drive(Double speed) {
-    drive(speed, speed);
+  public void tankDrive(Double speed) {
+    tankDrive(speed, speed);
+  }
+
+  public void arcadeDrive(Double leftSpeed, Double rightSpeed) {
+    m_drive.arcadeDrive(leftSpeed, rightSpeed);
+  }
+  public void arcadeDrive(Double speed) {
+    arcadeDrive(speed, speed);
   }
 
   public void startBrake() {

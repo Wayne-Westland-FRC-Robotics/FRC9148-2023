@@ -9,11 +9,11 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class DefaultDrive extends CommandBase {
+public class ArcadeDrive extends CommandBase {
   private final DoubleSupplier m_leftSpeed;
   private final DoubleSupplier m_rightSpeed;
   private final DrivetrainSubsystem m_drivetrain;
-  public DefaultDrive(DrivetrainSubsystem drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
+  public ArcadeDrive(DrivetrainSubsystem drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
     m_leftSpeed = leftSpeed;
     m_rightSpeed = rightSpeed;
     m_drivetrain = drivetrain;
@@ -23,11 +23,11 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.drive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
+    m_drivetrain.arcadeDrive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.drive(0.0);
+    m_drivetrain.arcadeDrive(0.0);
   }
 }

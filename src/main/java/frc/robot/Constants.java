@@ -17,6 +17,10 @@ public final class Constants {
     public final static int DRIVER_CONTROLLER_PORT = 0;
     public final static int OPERATOR_CONTROLLER_PORT = 1;
 
+    public final static int DRIVER_JOYSTICK_PORT_1 = 0;
+    public final static int DRIVER_JOYSTICK_PORT_2 = 1;
+    public final static int OPERATOR_JOYSTICK_PORT = 2;
+
     public final static double ARM_BEND_SPEED = 0.25;
     public final static double ARM_SLIDER_SPEED = 0.1;
   }

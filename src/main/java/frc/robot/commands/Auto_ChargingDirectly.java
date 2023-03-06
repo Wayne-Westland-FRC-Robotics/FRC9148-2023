@@ -22,7 +22,7 @@ public class Auto_ChargingDirectly extends SequentialCommandGroup {
     addRequirements(m_drivetrain);
 
     addCommands(
-      new DefaultDrive(m_drivetrain, ()->0.15, ()->0.15).withTimeout(AutoConstants.CHARGE_DIRECT_INITIAL_TIME),
+      new TankDrive(m_drivetrain, ()->0.15, ()->0.15).withTimeout(AutoConstants.CHARGE_DIRECT_INITIAL_TIME),
       new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra).withTimeout(13 - AutoConstants.CHARGE_DIRECT_INITIAL_TIME)
     );
   }

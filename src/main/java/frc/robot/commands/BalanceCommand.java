@@ -32,23 +32,23 @@ public class BalanceCommand extends CommandBase {
   @Override
   public void execute() {
     if (m_isOverhanging.getAsBoolean()) {
-      m_drivetrain.drive(0.0);
+      m_drivetrain.tankDrive(0.0);
       return;
     }
 
     if (m_tilt.getAsDouble() >= ControlSystemConstants.BALANCE_TILT_LIMIT) {
-      m_drivetrain.drive(ControlSystemConstants.BALANCE_SPEED);
+      m_drivetrain.tankDrive(ControlSystemConstants.BALANCE_SPEED);
     } else if (m_tilt.getAsDouble() <= -ControlSystemConstants.BALANCE_TILT_LIMIT) {
-      m_drivetrain.drive(-ControlSystemConstants.BALANCE_SPEED);
+      m_drivetrain.tankDrive(-ControlSystemConstants.BALANCE_SPEED);
     } else {
-      m_drivetrain.drive(0.0);
+      m_drivetrain.tankDrive(0.0);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.drive(0.0);
+    m_drivetrain.tankDrive(0.0);
     m_drivetrain.stopBrake();
   }
 
