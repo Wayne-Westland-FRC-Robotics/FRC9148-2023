@@ -23,9 +23,15 @@ public class BendArm extends CommandBase {
     m_armSubsystem.bend(m_speed);
   }
 
+  @Override
+  public void initialize() {
+    m_armSubsystem.startBrake();
+  }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_armSubsystem.bend(0.0);
+    m_armSubsystem.stopBrake();
   }
 }

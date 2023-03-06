@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,5 +29,12 @@ public class BendArmSubsystem extends SubsystemBase {
       SmartDashboard.putString("CanBend", "Arm has NOT hit rotation limit.");
       bendArmMotor.set(speed);
     }
+  }
+
+  public void startBrake() {
+    bendArmMotor.setIdleMode(IdleMode.kBrake);
+  }
+  public void stopBrake() {
+    bendArmMotor.setIdleMode(IdleMode.kCoast);
   }
 }

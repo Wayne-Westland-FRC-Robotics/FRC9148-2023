@@ -8,6 +8,7 @@ import frc.robot.Constants.ContainerConstants;
 import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.BendArm;
+import frc.robot.commands.BendArmPID;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.SlideArm;
 import frc.robot.subsystems.ClawSubsystem;
@@ -47,6 +48,9 @@ public class RobotContainer {
 
     m_opController.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
     m_opController.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
+  
+    m_opController.povLeft().whileTrue(new BendArmPID(m_armBendSubsystem, false));
+    m_opController.povRight().whileTrue(new BendArmPID(m_armBendSubsystem, true));
   }
 
   public Command getAutonomousCommand() {

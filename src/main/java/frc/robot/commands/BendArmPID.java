@@ -47,12 +47,18 @@ public class BendArmPID extends CommandBase {
     */
   }
 
+  @Override
+  public void initialize() {
+    m_moveArmSubsystem.startBrake();
+  }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_moveArmSubsystem.bend(0.0);
+    m_moveArmSubsystem.stopBrake();
   }
-
+  
   private double calc(RelativeEncoder encoder, Boolean goTop) {
     return pidController1.calculate(
       encoder.getPosition(), (goTop ? ControlSystemConstants.ARM_UPPER_POSITION : ControlSystemConstants.ARM_LOWER_POSITION)
