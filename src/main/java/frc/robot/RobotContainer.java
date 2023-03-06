@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.ContainerConstants;
 import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ArmNeutralPID;
 import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.BendArm;
 import frc.robot.commands.BendArmPID;
@@ -43,6 +44,8 @@ public class RobotContainer {
 
   public RobotContainer(Robot robot) {
     m_robot = robot;
+
+    m_armBendSubsystem.setDefaultCommand(new ArmNeutralPID(m_armBendSubsystem));
 
     m_controllerChooser.setDefaultOption("XboxTank", m_tankDriveCon);
     m_controllerChooser.addOption("XboxArcade", m_arcadeDriveCon);

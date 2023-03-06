@@ -39,7 +39,7 @@ public class BendArmPID extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_moveArmSubsystem.bend(calc(m_moveArmSubsystem.getEncoder(0), m_goTop));
+    m_moveArmSubsystem.bend(calc(m_moveArmSubsystem.getEncoder(), m_goTop));
     /* 
     SmartDashboard.putNumber("Feedforward calculation", feedforward.calculate(
       speed
