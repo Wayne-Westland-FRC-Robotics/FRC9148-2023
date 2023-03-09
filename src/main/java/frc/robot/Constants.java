@@ -26,15 +26,15 @@ public final class Constants {
   }
 
   public static class DrivetrainConstants {
-    public final static int LEFT_MOTOR_ID_1 = 1;
-    public final static int LEFT_MOTOR_ID_2 = 2;
-    public final static int RIGHT_MOTOR_ID_1 = 3;
-    public final static int RIGHT_MOTOR_ID_2 = 4;
+    public final static int LEFT_MOTOR_ID_1 = 2;
+    public final static int LEFT_MOTOR_ID_2 = 3;
+    public final static int RIGHT_MOTOR_ID_1 = 4;
+    public final static int RIGHT_MOTOR_ID_2 = 5;
   }
 
   public static class ArmConstants {
-    public final static int BEND_ARM_MOTOR_ID = 5;
-    public final static int EXTEND_ARM_MOTOR_ID = 6;
+    public final static int BEND_ARM_MOTOR_ID = 6;
+    public final static int EXTEND_ARM_MOTOR_ID = 7;
 
     public final static double ARM_BEND_RADIUS_ENCODER = 42*70/3;
     public final static double ARM_EXTEND_DISTANCE_ENCODER = 42*4*3;
