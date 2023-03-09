@@ -10,10 +10,10 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DefaultAuto extends SequentialCommandGroup {
+public class Auto_Bottom extends SequentialCommandGroup {
   private final DrivetrainSubsystem m_drivetrain;
 
-  public DefaultAuto(DrivetrainSubsystem drivetrain) {
+  public Auto_Bottom(DrivetrainSubsystem drivetrain) {
     m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
 

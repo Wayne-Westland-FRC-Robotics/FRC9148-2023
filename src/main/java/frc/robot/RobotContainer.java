@@ -8,9 +8,11 @@ import frc.robot.Constants.ContainerConstants;
 import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmNeutralPID;
+import frc.robot.commands.Auto_ChargingDirectly;
 import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.BendArm;
 import frc.robot.commands.BendArmPID;
+import frc.robot.commands.Auto_Bottom;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.SlideArm;
 import frc.robot.subsystems.ClawSubsystem;
@@ -37,11 +39,13 @@ public class RobotContainer {
   private final CommandJoystick m_drJoystick2 = new CommandJoystick(ContainerConstants.DRIVER_JOYSTICK_PORT_2);
 
   SendableChooser<Command> m_controllerChooser = new SendableChooser<>();
+  SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
+
   private final Command m_tankDriveCon = new TankDrive(m_drivetrain, m_drController::getLeftY, m_drController::getRightY);
   private final Command m_arcadeDriveCon = new ArcadeDrive(m_drivetrain, m_drController::getLeftY, m_drController::getRightY);
   private final Command m_tankDriveJoy = new TankDrive(m_drivetrain, m_drJoystick1::getY, m_drJoystick2::getY);
   private final Command m_arcadeDriveJoy = new ArcadeDrive(m_drivetrain, m_drJoystick1::getY, m_drJoystick1::getX);
-
+  
   public RobotContainer(Robot robot) {
     m_robot = robot;
 
@@ -52,6 +56,13 @@ public class RobotContainer {
     m_controllerChooser.addOption("JoystickTank", m_tankDriveJoy);
     m_controllerChooser.addOption("JoystickArcade", m_arcadeDriveJoy);
     Shuffleboard.getTab("Select Controller").add(m_controllerChooser);
+
+    m_autonomousChooser.setDefaultOption("Direct Charge",
+      new Auto_ChargingDirectly(m_drivetrain, m_robot)
+    );
+    m_autonomousChooser.addOption("Bottom Auto",
+      new Auto_Bottom(m_drivetrain)
+    );
 
     configureBindings();
   }
