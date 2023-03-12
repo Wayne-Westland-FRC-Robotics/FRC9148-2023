@@ -1,3 +1,1 @@
-* Check whether to use ps4 interface or xbox interface controller.
-* Figure out which buttons should do what.
-* Make sure to create a seperate copy for Atlas.
+!!! TURNING DIRECTION MUST BE TESTED FOR 313 (+/-) !!!

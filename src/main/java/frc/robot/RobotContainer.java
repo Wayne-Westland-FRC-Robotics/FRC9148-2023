@@ -9,9 +9,12 @@ import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ArmNeutralPID;
 import frc.robot.commands.Auto_ChargingDirectly;
+import frc.robot.commands.Auto_ExitCommunity_Long;
+import frc.robot.commands.Auto_ExitCommunity_Short;
 import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.BendArm;
-import frc.robot.commands.BendArmPID;
+import frc.robot.commands.BrakeCommand;
+//import frc.robot.commands.BendArmPID;
 import frc.robot.commands.Auto_Bottom;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.SlideArm;
@@ -41,6 +44,9 @@ public class RobotContainer {
   SendableChooser<Command> m_controllerChooser = new SendableChooser<>();
   SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
+  SendableChooser<Boolean> m_controllerCount = new SendableChooser<>();
+  SendableChooser<Command> m_autoType = new SendableChooser<>();
+
   private final Command m_tankDriveCon = new TankDrive(m_drivetrain, m_drController::getLeftY, m_drController::getRightY);
   private final Command m_arcadeDriveCon = new ArcadeDrive(m_drivetrain, m_drController::getLeftY, m_drController::getRightY);
   private final Command m_tankDriveJoy = new TankDrive(m_drivetrain, m_drJoystick1::getY, m_drJoystick2::getY);
@@ -64,12 +70,25 @@ public class RobotContainer {
       new Auto_Bottom(m_drivetrain)
     );
 
-    configureBindings();
+    m_autoType.setDefaultOption("Exit Long Side Auto", new Auto_ExitCommunity_Long(m_drivetrain));
+    m_autoType.setDefaultOption("Exit Short Side Auto", new Auto_ExitCommunity_Short(m_drivetrain));
+
+    m_controllerCount.setDefaultOption("Double", true);
+    m_controllerCount.addOption("Single", false);
+
+    //configureBindings(); [Configuring bindings in "robot" for the controller chooser!]
   }
 
-  private void configureBindings() {
-    m_drController.povDown().whileTrue(new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra));
+  public void configureBindings(boolean isDouble) {
+    m_drController.povLeft().whileTrue(new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra));
+    m_drController.a().whileTrue(new BrakeCommand(m_drivetrain));
 
+    if (isDouble) {
+      operatorSetup(m_opController);
+    } else {
+      operatorSetup(m_drController);
+    }
+    /* 
     m_opController.a().whileTrue(new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
     m_opController.b().whileTrue(new BendArm(-ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
 
@@ -79,16 +98,33 @@ public class RobotContainer {
     m_opController.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
     m_opController.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
   
-    m_opController.povLeft().whileTrue(new BendArmPID(m_armBendSubsystem, false));
-    m_opController.povRight().whileTrue(new BendArmPID(m_armBendSubsystem, true));
+    //m_opController.povLeft().whileTrue(new BendArmPID(m_armBendSubsystem, false));
+    //m_opController.povRight().whileTrue(new BendArmPID(m_armBendSubsystem, true));
+    */
+  }
+
+  public void operatorSetup(CommandXboxController controller) {
+    controller.a().whileTrue(new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
+    controller.b().whileTrue(new BendArm(-ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
+
+    controller.x().whileTrue(new ActuateClaw(0, m_clawSubsystem));
+    controller.y().whileTrue(new ActuateClaw(1, m_clawSubsystem));
+
+    controller.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
+    controller.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    //return m_autoType.getSelected();
+    return new Auto_ExitCommunity_Long(m_drivetrain);
   }
 
   public Command getControllerChooser() {
     return m_controllerChooser.getSelected();
+  }
+  
+  public Boolean getControllerCount() {
+    return m_controllerCount.getSelected();
   }
 
   public DrivetrainSubsystem getDrivetrain() {

@@ -21,8 +21,8 @@ public final class Constants {
     public final static int DRIVER_JOYSTICK_PORT_2 = 1;
     public final static int OPERATOR_JOYSTICK_PORT = 2;
 
-    public final static double ARM_BEND_SPEED = 0.25;
-    public final static double ARM_SLIDER_SPEED = 0.1;
+    public final static double ARM_BEND_SPEED = 0.65;
+    public final static double ARM_SLIDER_SPEED = 0.25;
   }
 
   public static class DrivetrainConstants {
@@ -67,8 +67,8 @@ public final class Constants {
     public final static double kPBal = 0;
     public final static double kDBal = 0;
 
-    public final static double ARM_UPPER_POSITION = 0;
-    public final static double ARM_LOWER_POSITION = 120;
+    public final static double ARM_UPPER_POSITION = 25;
+    public final static double ARM_LOWER_POSITION = 140;
     // non-pid balance
     public final static double BALANCE_TILT_LIMIT = 10; // This is in degrees.
     public final static double BALANCE_SPEED = 0.07; // Speed of the robot when trying to balance

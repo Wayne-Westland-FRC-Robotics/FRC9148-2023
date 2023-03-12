@@ -37,7 +37,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   public void tankDrive(Double leftSpeed, Double rightSpeed) {
-    m_drive.tankDrive(leftSpeed, rightSpeed);
+    m_drive.tankDrive(-leftSpeed, -rightSpeed);
   }
   public void tankDrive(Double speed) {
     tankDrive(speed, speed);

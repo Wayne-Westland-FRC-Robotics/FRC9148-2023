@@ -20,14 +20,20 @@ public class TankDrive extends CommandBase {
     addRequirements(m_drivetrain);
   }
 
+  @Override
+  public void initialize() {
+    m_drivetrain.stopBrake();
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.tankDrive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble());
+    m_drivetrain.tankDrive(0.75*m_leftSpeed.getAsDouble(), -0.75*m_rightSpeed.getAsDouble());
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_drivetrain.tankDrive(0.0);
+    m_drivetrain.startBrake();
   }
 }

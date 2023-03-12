@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.ArmConstants;
@@ -16,6 +17,10 @@ public class SlideArmSubsystem extends SubsystemBase {
   private final CANSparkMax extendArmMotor = new CANSparkMax(ArmConstants.EXTEND_ARM_MOTOR_ID, MotorType.kBrushless);
 
   private final RelativeEncoder encoder = extendArmMotor.getEncoder();
+
+  public SlideArmSubsystem() {
+    extendArmMotor.setIdleMode(IdleMode.kBrake);
+  }
   
   public void slide(Double speed) {
     if ((encoder.getPosition() < 0 && speed<0) || (encoder.getPosition() > ArmConstants.ARM_EXTEND_DISTANCE_ENCODER && speed>=0)) {

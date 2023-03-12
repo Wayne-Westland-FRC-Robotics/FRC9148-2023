@@ -6,6 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.Compressor;
+//import edu.wpi.first.wpilibj.CompressorConfigType;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,6 +28,9 @@ public class Robot extends TimedRobot {
   //Accelerometer (Gyro)
   private BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
 
+  private final Compressor m_compresser = new Compressor(1, PneumaticsModuleType.REVPH);
+
+  //private final pneumatic
   // Ultrasonics:
   public AnalogPotentiometer m_ultrasonicFL = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_FRONT_LEFT);
   public AnalogPotentiometer m_ultrasonicFR = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_FRONT_RIGHT);
@@ -43,6 +49,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(this);
+
   }
 
   /**
@@ -59,11 +66,14 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putBoolean("Compresser Status", m_compresser.isEnabled());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_compresser.disable();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -71,6 +81,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    m_compresser.enableDigital();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -85,11 +96,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_compresser.enableDigital();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
     m_robotContainer.getDrivetrain().setDefaultCommand(
       m_robotContainer.getControllerChooser()
+    );
+
+    m_robotContainer.configureBindings(
+      m_robotContainer.getControllerCount()
     );
   }
 

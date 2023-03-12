@@ -4,30 +4,25 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class ArcadeDrive extends CommandBase {
-  private final DoubleSupplier m_leftSpeed;
-  private final DoubleSupplier m_rightSpeed;
+public class BrakeCommand extends CommandBase {
   private final DrivetrainSubsystem m_drivetrain;
-  public ArcadeDrive(DrivetrainSubsystem drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
-    m_leftSpeed = leftSpeed;
-    m_rightSpeed = rightSpeed;
+  public BrakeCommand(DrivetrainSubsystem drivetrain) {
     m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // Called when the command is initially scheduled.
   @Override
-  public void execute() {
-    m_drivetrain.arcadeDrive(0.75*m_leftSpeed.getAsDouble(), 0.75*m_rightSpeed.getAsDouble());
+  public void initialize() {
+    m_drivetrain.startBrake();
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.arcadeDrive(0.0);
+    m_drivetrain.stopBrake();
   }
 }
