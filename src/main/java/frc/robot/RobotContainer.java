@@ -11,7 +11,9 @@ import frc.robot.commands.ArmNeutralPID;
 import frc.robot.commands.Auto_ChargingDirectly;
 import frc.robot.commands.Auto_ExitCommunity_Long;
 import frc.robot.commands.Auto_ExitCommunity_Short;
-import frc.robot.commands.BalanceCommand;
+//import frc.robot.commands.BalanceCommand;
+import frc.robot.commands.BalanceNoUltra;
+//import frc.robot.commands.BalancePID;
 import frc.robot.commands.BendArm;
 import frc.robot.commands.BrakeCommand;
 //import frc.robot.commands.BendArmPID;
@@ -52,8 +54,13 @@ public class RobotContainer {
   private final Command m_tankDriveJoy = new TankDrive(m_drivetrain, m_drJoystick1::getY, m_drJoystick2::getY);
   private final Command m_arcadeDriveJoy = new ArcadeDrive(m_drivetrain, m_drJoystick1::getY, m_drJoystick1::getX);
   
+  private final Command m_chargeDirectlyCommand;
+  private final Command m_bottomAuto = new Auto_Bottom(m_drivetrain);
+  private final Command m_autoExitShort = new Auto_ExitCommunity_Long(m_drivetrain);
+  private final Command m_autoExitLong = new Auto_ExitCommunity_Short(m_drivetrain);
   public RobotContainer(Robot robot) {
     m_robot = robot;
+    m_chargeDirectlyCommand = new Auto_ChargingDirectly(m_drivetrain, m_robot);
 
     m_armBendSubsystem.setDefaultCommand(new ArmNeutralPID(m_armBendSubsystem));
 
@@ -63,15 +70,11 @@ public class RobotContainer {
     m_controllerChooser.addOption("JoystickArcade", m_arcadeDriveJoy);
     Shuffleboard.getTab("Select Controller").add(m_controllerChooser);
 
-    m_autonomousChooser.setDefaultOption("Direct Charge",
-      new Auto_ChargingDirectly(m_drivetrain, m_robot)
-    );
-    m_autonomousChooser.addOption("Bottom Auto",
-      new Auto_Bottom(m_drivetrain)
-    );
+    m_autonomousChooser.setDefaultOption("Direct Charge", m_chargeDirectlyCommand);
+    m_autonomousChooser.addOption("Bottom Auto", m_bottomAuto);
 
-    m_autoType.setDefaultOption("Exit Long Side Auto", new Auto_ExitCommunity_Long(m_drivetrain));
-    m_autoType.setDefaultOption("Exit Short Side Auto", new Auto_ExitCommunity_Short(m_drivetrain));
+    m_autoType.setDefaultOption("Exit Long Side Auto", m_autoExitShort);
+    m_autoType.addOption("Exit Short Side Auto", m_autoExitLong);
 
     m_controllerCount.setDefaultOption("Double", true);
     m_controllerCount.addOption("Single", false);
@@ -80,30 +83,27 @@ public class RobotContainer {
   }
 
   public void configureBindings(boolean isDouble) {
-    m_drController.povLeft().whileTrue(new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra));
+    //m_drController.povLeft().whileTrue(new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra));
     m_drController.a().whileTrue(new BrakeCommand(m_drivetrain));
+    m_drController.b().whileTrue(new BalanceNoUltra(m_drivetrain, m_robot));
 
     if (isDouble) {
       operatorSetup(m_opController);
     } else {
       operatorSetup(m_drController);
     }
-    /* 
-    m_opController.a().whileTrue(new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
-    m_opController.b().whileTrue(new BendArm(-ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
-
-    m_opController.x().whileTrue(new ActuateClaw(0, m_clawSubsystem));
-    m_opController.y().whileTrue(new ActuateClaw(1, m_clawSubsystem));
-
-    m_opController.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
-    m_opController.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
-  
-    //m_opController.povLeft().whileTrue(new BendArmPID(m_armBendSubsystem, false));
-    //m_opController.povRight().whileTrue(new BendArmPID(m_armBendSubsystem, true));
-    */
   }
 
   public void operatorSetup(CommandXboxController controller) {
+    controller.povUp().whileTrue(new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
+    controller.povDown().whileTrue(new BendArm(-ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
+
+    controller.leftBumper().whileTrue(new ActuateClaw(0, m_clawSubsystem));
+    controller.rightBumper().whileTrue(new ActuateClaw(1, m_clawSubsystem));
+
+    controller.povLeft().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
+    controller.povRight().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
+    /* OLD CONTROLS :
     controller.a().whileTrue(new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
     controller.b().whileTrue(new BendArm(-ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
 
@@ -112,11 +112,12 @@ public class RobotContainer {
 
     controller.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
     controller.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
+    */
   }
 
   public Command getAutonomousCommand() {
-    //return m_autoType.getSelected();
-    return new Auto_ExitCommunity_Long(m_drivetrain);
+    return m_autoType.getSelected();
+    //return new Auto_ExitCommunity_Long(m_drivetrain);
   }
 
   public Command getControllerChooser() {

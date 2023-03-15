@@ -72,6 +72,8 @@ public final class Constants {
     // non-pid balance
     public final static double BALANCE_TILT_LIMIT = 10; // This is in degrees.
     public final static double BALANCE_SPEED = 0.07; // Speed of the robot when trying to balance
+
+    public final static double TILT_BOUND = 5; // This is in degrees
   }
 
   public static class AutoConstants {
