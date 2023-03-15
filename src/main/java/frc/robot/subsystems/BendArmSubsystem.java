@@ -20,9 +20,13 @@ public class BendArmSubsystem extends SubsystemBase {
 
   public RelativeEncoder getEncoder() { return encoder; }
 
+  public BendArmSubsystem() {
+    encoder.setPositionConversionFactor(ArmConstants.ARM_BEND_RADIUS_ENCODER);
+  }
+
   public void bend(Double speed) {
     // Limit arm rotation :
-    if ((encoder.getPosition() < 0 && speed<0) || (encoder.getPosition() > ArmConstants.ARM_BEND_RADIUS_ENCODER && speed>=0)) {
+    if ((encoder.getPosition() < 0 && speed<0) || (encoder.getPosition() > 120 && speed>=0)) {
       SmartDashboard.putString("CanBend", "Arm has hit rotation limit!");
       bendArmMotor.set(0);
     } else {

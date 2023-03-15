@@ -36,7 +36,13 @@ public final class Constants {
     public final static int BEND_ARM_MOTOR_ID = 6;
     public final static int EXTEND_ARM_MOTOR_ID = 7;
 
-    public final static double ARM_BEND_RADIUS_ENCODER = 42*70/3;
+    /**
+     * Converts encoder units to rotation of the arm in degrees.
+     * 80*2.8 -> conversion factor from motor to arm
+     * 42 -> counts per revolutions
+     * 360 -> conversiono to degrees
+     */
+    public final static double ARM_BEND_RADIUS_ENCODER = 42*80*2.8*360;
     public final static double ARM_EXTEND_DISTANCE_ENCODER = 42*4*3;
 
     public final static int CLAW_FORWARD = 1;
