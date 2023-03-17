@@ -11,6 +11,8 @@ import frc.robot.commands.ArmNeutralPID;
 import frc.robot.commands.Auto_ChargingDirectly;
 import frc.robot.commands.Auto_ExitCommunity_Long;
 import frc.robot.commands.Auto_ExitCommunity_Short;
+import frc.robot.commands.Automatic_End_Highgoal;
+import frc.robot.commands.Automatic_Highgoal;
 //import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.BalanceNoUltra;
 //import frc.robot.commands.BalancePID;
@@ -59,6 +61,7 @@ public class RobotContainer {
   private final Command m_autoExitShort = new Auto_ExitCommunity_Long(m_drivetrain);
   private final Command m_autoExitLong = new Auto_ExitCommunity_Short(m_drivetrain);
   public RobotContainer(Robot robot) {
+    m_drivetrain.startBrake();
     m_robot = robot;
     m_chargeDirectlyCommand = new Auto_ChargingDirectly(m_drivetrain, m_robot);
 
@@ -79,13 +82,15 @@ public class RobotContainer {
     m_controllerCount.setDefaultOption("Double", true);
     m_controllerCount.addOption("Single", false);
 
-    //configureBindings(); [Configuring bindings in "robot" for the controller chooser!]
+    //configureBindings(); [Configuring bindings in "robot.java" for the controller chooser!]
   }
 
   public void configureBindings(boolean isDouble) {
     //m_drController.povLeft().whileTrue(new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra));
     m_drController.a().whileTrue(new BrakeCommand(m_drivetrain));
     m_drController.b().whileTrue(new BalanceNoUltra(m_drivetrain, m_robot));
+    m_drController.x().toggleOnTrue(new Automatic_Highgoal(m_armBendSubsystem, m_armSlideSubystem, m_clawSubsystem));
+    m_drController.x().toggleOnFalse(new Automatic_End_Highgoal(m_armBendSubsystem, m_armSlideSubystem));
 
     if (isDouble) {
       operatorSetup(m_opController);

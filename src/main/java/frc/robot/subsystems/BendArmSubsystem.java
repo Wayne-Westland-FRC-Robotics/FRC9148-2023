@@ -26,7 +26,10 @@ public class BendArmSubsystem extends SubsystemBase {
 
   public void bend(Double speed) {
     // Limit arm rotation :
-    if ((encoder.getPosition() < 0 && speed<0) || (encoder.getPosition() > 120 && speed>=0)) {
+    if (
+      (encoder.getPosition() < ArmConstants.ARM_BEND_LOWER_LIMIT && speed<0) ||
+      (encoder.getPosition() > ArmConstants.ARM_BEND_UPPER_LIMIT && speed>=0)
+    ) {
       SmartDashboard.putString("CanBend", "Arm has hit rotation limit!");
       bendArmMotor.set(0);
     } else {
