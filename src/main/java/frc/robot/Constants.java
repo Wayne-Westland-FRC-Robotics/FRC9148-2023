@@ -44,8 +44,8 @@ public final class Constants {
      * 42 -> counts per revolutions
      * 360 -> conversion to degrees
      */
-    public final static double ARM_BEND_RADIUS_ENCODER = 42*80*2.8*360;
-    public final static double ARM_EXTEND_DISTANCE_ENCODER = 42*4*3; //encoder count * wheel size * extension length (in)
+    public final static double ARM_BEND_RADIUS_ENCODER = 42*70*360;
+    public final static double ARM_EXTEND_DISTANCE_ENCODER = 42*4*3;
 
     public final static double ARM_BEND_LOWER_LIMIT = 0;
     public final static double ARM_BEND_UPPER_LIMIT = 120;

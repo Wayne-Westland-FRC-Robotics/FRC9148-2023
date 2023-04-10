@@ -35,7 +35,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
   private final Robot m_robot;
-  // The robot's subsystems and commands are defined here...
+  // The robot'controller subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrain = new DrivetrainSubsystem();
   private final BendArmSubsystem m_armBendSubsystem = new BendArmSubsystem();
   private final SlideArmSubsystem m_armSlideSubystem = new SlideArmSubsystem();
@@ -43,8 +43,6 @@ public class RobotContainer {
 
   private final CommandXboxController m_drController = new CommandXboxController(ContainerConstants.DRIVER_CONTROLLER_PORT);
   private final CommandXboxController m_opController = new CommandXboxController(ContainerConstants.OPERATOR_CONTROLLER_PORT);
-  private final CommandJoystick m_drJoystick1= new CommandJoystick(ContainerConstants.DRIVER_JOYSTICK_PORT_1);
-  private final CommandJoystick m_drJoystick2 = new CommandJoystick(ContainerConstants.DRIVER_JOYSTICK_PORT_2);
 
   SendableChooser<Command> m_controllerChooser = new SendableChooser<>();
   SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -54,8 +52,6 @@ public class RobotContainer {
 
   private final Command m_tankDriveCon = new TankDrive(m_drivetrain, m_drController::getLeftY, m_drController::getRightY);
   private final Command m_arcadeDriveCon = new ArcadeDrive(m_drivetrain, m_drController::getLeftY, m_drController::getRightY);
-  private final Command m_tankDriveJoy = new TankDrive(m_drivetrain, m_drJoystick1::getY, m_drJoystick2::getY);
-  private final Command m_arcadeDriveJoy = new ArcadeDrive(m_drivetrain, m_drJoystick1::getY, m_drJoystick1::getX);
   
   private final Command m_chargeDirectlyCommand;
   private final Command m_bottomAuto = new Auto_Bottom(m_drivetrain);
@@ -64,7 +60,6 @@ public class RobotContainer {
 
 
   public RobotContainer(Robot robot) {
-    m_drivetrain.startBrake();
     m_robot = robot;
     m_chargeDirectlyCommand = new Auto_ChargingDirectly(m_drivetrain, m_robot);
 
@@ -72,8 +67,6 @@ public class RobotContainer {
 
     m_controllerChooser.setDefaultOption("XboxTank", m_tankDriveCon);
     m_controllerChooser.addOption("XboxArcade", m_arcadeDriveCon);
-    m_controllerChooser.addOption("JoystickTank", m_tankDriveJoy);
-    m_controllerChooser.addOption("JoystickArcade", m_arcadeDriveJoy);
     Shuffleboard.getTab("Select Controller").add(m_controllerChooser);
 
     m_autonomousChooser.setDefaultOption("Direct Charge", m_chargeDirectlyCommand);
