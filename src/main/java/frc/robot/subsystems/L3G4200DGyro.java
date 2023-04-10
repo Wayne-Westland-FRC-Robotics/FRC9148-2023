@@ -72,8 +72,8 @@ public class L3G4200DGyro {
     ///////////////////////////////////////////////////////////////////////////////
 
     // I2C device address - the address that the gyro will respond to
-    // This address assumes our gyro has SDO tied to Gnd.
-    private static final int I2C_ADDR = 0b01101000;
+    // This address assumes our gyro does not have SDO tied to Gnd.
+    private static final int I2C_ADDR = 0b01101001;
 
     // Gyro internal register addresses
     // These are the addreses of data that we care about
@@ -310,7 +310,7 @@ public class L3G4200DGyro {
      * sets inital register values, reads from the gyro a few times to figure out the zero-offset
      * value, then sets the zero-offset value. Finally, reading is kicked off in the background.
      */
-    L3G4200DGyro() {
+    public L3G4200DGyro() {
         byte[] rx_byte = {0}; // temp variable to store a byte to transmit over I2C
 
         filter_buf_start_pointer = 0; // initalize the poitner to an aribtrary location. I like
@@ -325,6 +325,7 @@ public class L3G4200DGyro {
         gyro.read(WHOAMI_REG_ADDR, 1, rx_byte);
         if (WHOAMI_EXPECTED != rx_byte[0]) {
             System.out.println("ERROR: WhoAmI register mismatch for Gyro! Cannot Initalize!");
+            System.out.println("Gyro got " + rx_byte[0]);
             gyro_initalized = false;
             return;
         }
