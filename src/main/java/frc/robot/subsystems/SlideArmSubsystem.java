@@ -20,15 +20,24 @@ public class SlideArmSubsystem extends SubsystemBase {
 
   public SlideArmSubsystem() {
     extendArmMotor.setIdleMode(IdleMode.kBrake);
+    extendArmMotor.setInverted(false);
   }
   
   public void slide(Double speed) {
-    if ((encoder.getPosition() < 0 && speed<0) || (encoder.getPosition() > ArmConstants.ARM_EXTEND_DISTANCE_ENCODER && speed>=0)) {
+
+    /* if ((encoder.getPosition() < 0 && speed < 0) || (encoder.getPosition() < -ArmConstants.ARM_EXTEND_DISTANCE_ENCODER && speed>=0)) {
       SmartDashboard.putString("CanSlide", "Arm has hit slide limit!");
       extendArmMotor.set(0);
     } else {
       SmartDashboard.putString("CanSlide", "Arm has NOT hit slide limit.");
       extendArmMotor.set(speed);
-    }
+    } */
+    extendArmMotor.set(speed);
+    SmartDashboard.putNumber("SlideSpeed", speed);
+  }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("SlideEncoderValue", encoder.getPosition());
   }
 }

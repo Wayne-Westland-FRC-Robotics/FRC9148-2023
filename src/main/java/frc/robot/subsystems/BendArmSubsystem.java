@@ -9,7 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
@@ -22,10 +22,12 @@ public class BendArmSubsystem extends SubsystemBase {
 
   public BendArmSubsystem() {
     encoder.setPositionConversionFactor(ArmConstants.ARM_BEND_RADIUS_ENCODER);
+    startBrake();
   }
 
   public void bend(Double speed) {
     // Limit arm rotation :
+    /* Disable limits until we have time to make them work
     if (
       (encoder.getPosition() < ArmConstants.ARM_BEND_LOWER_LIMIT && speed<0) ||
       (encoder.getPosition() > ArmConstants.ARM_BEND_UPPER_LIMIT && speed>=0)
@@ -36,6 +38,8 @@ public class BendArmSubsystem extends SubsystemBase {
       SmartDashboard.putString("CanBend", "Arm has NOT hit rotation limit.");
       bendArmMotor.set(speed);
     }
+    */
+    bendArmMotor.set(speed);
   }
 
   public void startBrake() {

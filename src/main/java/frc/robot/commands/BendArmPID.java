@@ -56,7 +56,6 @@ public class BendArmPID extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_moveArmSubsystem.bend(0.0);
-    m_moveArmSubsystem.stopBrake();
   }
   
   private double calc(RelativeEncoder encoder, Boolean goTop) {

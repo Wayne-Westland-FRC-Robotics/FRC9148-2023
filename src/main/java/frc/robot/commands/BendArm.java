@@ -32,6 +32,6 @@ public class BendArm extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_armSubsystem.bend(0.0);
-    m_armSubsystem.stopBrake();
+    //m_armSubsystem.stopBrake();
   }
 }

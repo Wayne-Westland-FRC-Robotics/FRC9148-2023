@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.BendArmSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Auto_ExitCommunity_Long extends SequentialCommandGroup {
-  private final DrivetrainSubsystem m_drivetrain;
-  public Auto_ExitCommunity_Long(DrivetrainSubsystem drivetrain) {
-    m_drivetrain = drivetrain;
+public class Auto_Score_Charge extends SequentialCommandGroup {
+  private final BendArmSubsystem m_armBend;
+  public Auto_Score_Charge(BendArmSubsystem armBend) {
+    m_armBend = armBend;
     addCommands(
-       new TankDrive(m_drivetrain, ()->0.4, ()->0.4).withTimeout(10)
+      
     );
   }
 }

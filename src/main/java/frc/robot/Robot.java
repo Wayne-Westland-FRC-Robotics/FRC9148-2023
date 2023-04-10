@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -27,6 +30,7 @@ public class Robot extends TimedRobot {
 
   //Accelerometer (Gyro)
   private BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
+  private AnalogGyro m_gyro = new AnalogGyro(0);
 
   private final Compressor m_compresser = new Compressor(1, PneumaticsModuleType.REVPH);
 
@@ -50,6 +54,13 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(this);
 
+    UsbCamera camera = CameraServer.startAutomaticCapture(0);
+    camera.setResolution(640, 480);
+
+    m_gyro.initGyro();
+    m_gyro.calibrate();
+    SmartDashboard.putNumber("Gyro Angle", m_gyro.getAngle());
+    SmartDashboard.putNumber("Gyro Rate", m_gyro.getRate());
   }
 
   /**
@@ -73,6 +84,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     m_compresser.disable();
+    m_gyro.close();
   }
 
   @Override
