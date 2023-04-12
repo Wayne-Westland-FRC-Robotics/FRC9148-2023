@@ -9,6 +9,7 @@ import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ArcadeDrive;
 //import frc.robot.commands.ArmNeutralPID;
 import frc.robot.commands.Auto_ChargingDirectly;
+import frc.robot.commands.Auto_Double_Score;
 import frc.robot.commands.Auto_ExitCommunity_Long;
 import frc.robot.commands.Auto_ExitCommunity_Short;
 //import frc.robot.commands.Automatic_End_Highgoal;
@@ -79,6 +80,7 @@ public class RobotContainer {
       new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem).withTimeout(1),
       new Auto_ExitCommunity_Long(m_drivetrain)
     ));
+    m_autoType.addOption("Double Score", new Auto_Double_Score(m_drivetrain, m_armBendSubsystem, m_armSlideSubystem, m_clawSubsystem));
     Shuffleboard.getTab("Select Controller").add(m_autoType);
 
     m_controllerCount.setDefaultOption("Double", true);
