@@ -36,6 +36,8 @@ public final class Constants {
     public final static int BEND_ARM_MOTOR_ID = 6;
     public final static int EXTEND_ARM_MOTOR_ID = 7;
 
+    public final static double ARM_SPEED_LIMITER = 0.5;
+
     public final static double AUTO_ARM_BEND_DEADZONE = 5;
 
     /**
@@ -43,8 +45,10 @@ public final class Constants {
      * 80*2.8 -> conversion factor from motor to arm
      * 42 -> counts per revolutions
      * 360 -> conversion to degrees
+     * XXX MAKE SURE ALL VALUES ARE DOUBLES!!! (add .0)
      */
-    public final static double ARM_BEND_RADIUS_ENCODER = 42*70*360;
+    public final static double ARM_BEND_RADIUS_ENCODER = (1.0/81.0)*(10.0/26.0)*(360.0/1.0);
+    // 42*70*360 9148 Robot |
     public final static double ARM_EXTEND_DISTANCE_ENCODER = 42*4*3;
 
     public final static double ARM_BEND_LOWER_LIMIT = 0;
@@ -68,8 +72,8 @@ public final class Constants {
     public final static double kVArm = 0.0001291;
     public final static double kAArm = 0.019404;
 
-    public final static double kPArm = 0.000366;
-    public final static double kDArm = 0;
+    public final static double kPArm = 0.077941;
+    public final static double kDArm = 0.02093;
     // pid balance
     public final static double kSBal = 0;
     public final static double kVBal = 0;

@@ -17,6 +17,7 @@ import frc.robot.commands.Auto_ExitCommunity_Short;
 import frc.robot.commands.BalanceNoUltra;
 //import frc.robot.commands.BalancePID;
 import frc.robot.commands.BendArm;
+import frc.robot.commands.BendArmPID;
 import frc.robot.commands.BrakeCommand;
 //import frc.robot.commands.BendArmPID;
 import frc.robot.commands.Auto_Bottom;
@@ -30,7 +31,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+// import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
@@ -119,6 +120,8 @@ public class RobotContainer {
     controller.leftBumper().whileTrue(new SlideArm(ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
     controller.rightBumper().whileTrue(new SlideArm(-ContainerConstants.ARM_SLIDER_SPEED, m_armSlideSubystem));
     */
+    controller.y().whileTrue(new BendArmPID(m_armBendSubsystem, 90.0, false));
+    controller.a().whileTrue(new BendArmPID(m_armBendSubsystem, 0.0, false));
   }
 
   public Command getAutonomousCommand() {

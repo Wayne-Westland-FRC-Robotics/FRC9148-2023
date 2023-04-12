@@ -32,9 +32,9 @@ public class BalanceNoUltra extends CommandBase {
   public void execute() {
     tilt = m_robot.getRobotTilt();
     if (tilt >= ControlSystemConstants.TILT_BOUND) {
-      m_drivetrain.tankDrive(-0.25);
+      m_drivetrain.tankDrive(-0.1);
     } else if (tilt <= -ControlSystemConstants.TILT_BOUND) {
-      m_drivetrain.tankDrive(0.25);
+      m_drivetrain.tankDrive(0.1);
     }
   }
 

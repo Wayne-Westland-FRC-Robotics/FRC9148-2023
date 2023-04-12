@@ -15,7 +15,8 @@ import frc.robot.subsystems.BendArmSubsystem;
 
 public class BendArmPID extends CommandBase {
   private final BendArmSubsystem m_moveArmSubsystem;
-  private final Boolean m_goTop;
+  private final Double m_angle; // Degrees
+  private final Boolean m_endAtSetpoint;
 
   /* 
   private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(
@@ -30,16 +31,17 @@ public class BendArmPID extends CommandBase {
     0,
     ControlSystemConstants.kDArm
   );
-  public BendArmPID(BendArmSubsystem moveArmSubsystem, Boolean goTop) {
+  public BendArmPID(BendArmSubsystem moveArmSubsystem, Double angle, Boolean endAtSetpoint) {
     m_moveArmSubsystem = moveArmSubsystem;
-    m_goTop = goTop;
+    m_angle = angle;
+    m_endAtSetpoint = endAtSetpoint;
     addRequirements(m_moveArmSubsystem);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_moveArmSubsystem.bend(calc(m_moveArmSubsystem.getEncoder(), m_goTop));
+    m_moveArmSubsystem.bend(calc(m_moveArmSubsystem.getEncoder(), m_angle));
     /* 
     SmartDashboard.putNumber("Feedforward calculation", feedforward.calculate(
       speed
@@ -58,15 +60,18 @@ public class BendArmPID extends CommandBase {
     m_moveArmSubsystem.bend(0.0);
   }
   
-  private double calc(RelativeEncoder encoder, Boolean goTop) {
+  private double calc(RelativeEncoder encoder, Double angle) {
     return pidController1.calculate(
-      encoder.getPosition(), (goTop ? ControlSystemConstants.ARM_UPPER_POSITION : ControlSystemConstants.ARM_LOWER_POSITION)
+      encoder.getPosition(), angle
     );// + feedforward.calculate(speed);
   }
 
   @Override
   public boolean isFinished() {
-    return pidController1.atSetpoint();
+    if (m_endAtSetpoint) {
+      return pidController1.atSetpoint();
+    }
+    return false;
   }
   // Returns true when the command should end.
  

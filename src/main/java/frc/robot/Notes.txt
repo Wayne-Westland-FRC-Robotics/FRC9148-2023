@@ -1,2 +1,1 @@
-* Automatic go to height of high goal (313 & 9148)
-* Setup 313 chain arm (no extension, bends the other way)
+* ADD ISFINISHED FOR BEND ARM PID

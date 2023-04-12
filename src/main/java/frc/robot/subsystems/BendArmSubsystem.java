@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
@@ -23,6 +24,8 @@ public class BendArmSubsystem extends SubsystemBase {
   public BendArmSubsystem() {
     encoder.setPositionConversionFactor(ArmConstants.ARM_BEND_RADIUS_ENCODER);
     bendArmMotor.setIdleMode(IdleMode.kBrake);
+    bendArmMotor.setInverted(true);
+    encoder.setPosition(0);
   }
 
   public void bend(Double speed) {
@@ -39,7 +42,7 @@ public class BendArmSubsystem extends SubsystemBase {
       bendArmMotor.set(speed);
     }
     */
-    bendArmMotor.set(speed);
+    bendArmMotor.set(speed*ArmConstants.ARM_SPEED_LIMITER);
   }
 
   public void startBrake() {
@@ -47,5 +50,9 @@ public class BendArmSubsystem extends SubsystemBase {
   }
   public void stopBrake() {
     bendArmMotor.setIdleMode(IdleMode.kCoast);
+  }
+
+  public void periodic() {
+    SmartDashboard.putNumber("Arm Encoder", encoder.getPosition());
   }
 }

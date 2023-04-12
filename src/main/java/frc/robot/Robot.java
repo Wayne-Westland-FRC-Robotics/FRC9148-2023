@@ -6,14 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+// import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Compressor;
 //import edu.wpi.first.wpilibj.CompressorConfigType;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -31,7 +29,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   //Accelerometer (Gyro)
-  private BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
+  //private BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
   private L3G4200DGyro m_gyro ;//= new L3G4200DGyro();
 
   private final Compressor m_compresser = new Compressor(1, PneumaticsModuleType.REVPH);
@@ -44,7 +42,8 @@ public class Robot extends TimedRobot {
   public AnalogPotentiometer m_ultrasonicBR = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_BACK_RIGHT);
 
   public Double getRobotTilt() {
-    return Math.asin(accelerometer.getY()*180/Math.PI);
+    //return Math.asin(accelerometer.getY()*180/Math.PI);
+    return m_gyro.get_gyro_angle();
   }
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -56,8 +55,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(this);
 
-    UsbCamera camera = CameraServer.startAutomaticCapture(0);
-    camera.setResolution(640, 480);
+    UsbCamera armCam = CameraServer.startAutomaticCapture();
+    
+
     m_gyro = new L3G4200DGyro();
     // SmartDashboard.putNumber("Gyro Rate", m_gyro.getRate());
   }
