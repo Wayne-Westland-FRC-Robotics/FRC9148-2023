@@ -47,8 +47,8 @@ public final class Constants {
      * 360 -> conversion to degrees
      * XXX MAKE SURE ALL VALUES ARE DOUBLES!!! (add .0)
      */
-    public final static double ARM_BEND_RADIUS_ENCODER = (1.0/81.0)*(10.0/26.0)*(360.0/1.0);
-    // 42*70*360 9148 Robot |
+    public final static double ARM_BEND_RADIUS_ENCODER = (1.0/70.0)*(24.0/56.0)*(360.0/1.0);
+    // 313 : 1:81 + 10:26
     public final static double ARM_EXTEND_DISTANCE_ENCODER = 42*4*3;
 
     public final static double ARM_BEND_LOWER_LIMIT = 0;

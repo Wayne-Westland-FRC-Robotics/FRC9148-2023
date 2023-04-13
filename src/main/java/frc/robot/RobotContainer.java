@@ -12,6 +12,7 @@ import frc.robot.commands.Auto_ChargingDirectly;
 import frc.robot.commands.Auto_Double_Score;
 import frc.robot.commands.Auto_ExitCommunity_Long;
 import frc.robot.commands.Auto_ExitCommunity_Short;
+import frc.robot.commands.Auto_ScoreStartingPiece;
 //import frc.robot.commands.Automatic_End_Highgoal;
 //import frc.robot.commands.Automatic_Highgoal;
 //import frc.robot.commands.BalanceCommand;
@@ -21,7 +22,7 @@ import frc.robot.commands.BendArm;
 import frc.robot.commands.BendArmPID;
 import frc.robot.commands.BrakeCommand;
 //import frc.robot.commands.BendArmPID;
-import frc.robot.commands.Auto_Bottom;
+// import frc.robot.commands.Auto_Bottom;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.SlideArm;
 import frc.robot.subsystems.ClawSubsystem;
@@ -56,9 +57,9 @@ public class RobotContainer {
   private final Command m_arcadeDriveCon = new ArcadeDrive(m_drivetrain, m_drController::getLeftY, m_drController::getRightY);
   
   private final Command m_chargeDirectlyCommand;
-  private final Command m_bottomAuto = new Auto_Bottom(m_drivetrain);
-  private final Command m_autoExitShort = new Auto_ExitCommunity_Long(m_drivetrain);
-  private final Command m_autoExitLong = new Auto_ExitCommunity_Short(m_drivetrain);
+  //private final Command m_bottomAuto = new Auto_Bottom(m_drivetrain);
+  private final Command m_autoExitShort = new Auto_ExitCommunity_Short(m_drivetrain);
+  private final Command m_autoExitLong = new Auto_ExitCommunity_Long(m_drivetrain);
 
 
   public RobotContainer(Robot robot) {
@@ -71,16 +72,29 @@ public class RobotContainer {
     m_controllerChooser.addOption("XboxArcade", m_arcadeDriveCon);
     Shuffleboard.getTab("Select Controller").add(m_controllerChooser);
 
-    m_autonomousChooser.setDefaultOption("Direct Charge", m_chargeDirectlyCommand);
-    m_autonomousChooser.addOption("Bottom Auto", m_bottomAuto);
+    m_autoType.setDefaultOption("Score + Mobillity", new SequentialCommandGroup(
+      new Auto_ScoreStartingPiece(m_armBendSubsystem, m_armSlideSubystem, m_clawSubsystem),
+      new Auto_ExitCommunity_Long(m_drivetrain)
+    ));
 
-    m_autoType.setDefaultOption("Exit Long Side Auto", m_autoExitShort);
-    m_autoType.addOption("Exit Short Side Auto", m_autoExitLong);
+    m_autoType.addOption("Score + Charge", new SequentialCommandGroup(
+      new Auto_ScoreStartingPiece(m_armBendSubsystem, m_armSlideSubystem, m_clawSubsystem),
+      new Auto_ChargingDirectly(m_drivetrain, m_robot)
+    ));
+
+    m_autonomousChooser.addOption("Direct Charge", m_chargeDirectlyCommand);
+
+    m_autoType.addOption("Mobility (Long)", m_autoExitLong);
+
+    m_autoType.addOption("Mobility (Short)", m_autoExitShort);
+
     m_autoType.addOption("Arm bump", new SequentialCommandGroup(
       new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem).withTimeout(1),
       new Auto_ExitCommunity_Long(m_drivetrain)
     ));
+
     m_autoType.addOption("Double Score", new Auto_Double_Score(m_drivetrain, m_armBendSubsystem, m_armSlideSubystem, m_clawSubsystem));
+    
     Shuffleboard.getTab("Select Controller").add(m_autoType);
 
     m_controllerCount.setDefaultOption("Double", true);
