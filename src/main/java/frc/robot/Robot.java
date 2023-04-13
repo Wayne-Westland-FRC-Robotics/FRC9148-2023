@@ -4,18 +4,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-// import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Compressor;
-//import edu.wpi.first.wpilibj.CompressorConfigType;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.UltrasonicConstants;
 import frc.robot.subsystems.L3G4200DGyro;
 
 /**
@@ -34,13 +28,6 @@ public class Robot extends TimedRobot {
 
   private final Compressor m_compresser = new Compressor(1, PneumaticsModuleType.REVPH);
 
-  //private final pneumatic
-  // Ultrasonics:
-  public AnalogPotentiometer m_ultrasonicFL = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_FRONT_LEFT);
-  public AnalogPotentiometer m_ultrasonicFR = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_FRONT_RIGHT);
-  public AnalogPotentiometer m_ultrasonicBL = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_BACK_LEFT);
-  public AnalogPotentiometer m_ultrasonicBR = new AnalogPotentiometer(UltrasonicConstants.ULTRASONIC_BACK_RIGHT);
-
   public Double getRobotTilt() {
     //return Math.asin(accelerometer.getY()*180/Math.PI);
     return m_gyro.get_gyro_angle();
@@ -55,11 +42,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(this);
 
-    UsbCamera armCam = CameraServer.startAutomaticCapture();
-    
-
     m_gyro = new L3G4200DGyro();
-    // SmartDashboard.putNumber("Gyro Rate", m_gyro.getRate());
   }
 
   /**
@@ -78,7 +61,6 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     SmartDashboard.putBoolean("Compresser Status", m_compresser.isEnabled());
     SmartDashboard.putNumber("Gyro Angle Z", m_gyro.get_gyro_angle());
-    SmartDashboard.putBoolean("gyro is init", m_gyro.get_gyro_initalized());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -123,20 +105,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    SmartDashboard.putNumber("FL_ULTRA", m_ultrasonicFL.get());
-    SmartDashboard.putNumber("FR_ULTRA", m_ultrasonicFR.get());
-    SmartDashboard.putNumber("BL_ULTRA", m_ultrasonicBL.get());
-    SmartDashboard.putNumber("BR_ULTRA", m_ultrasonicBR.get());
-  }
-
-  public boolean getUltra() {
-    return 
-      m_ultrasonicFR.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ||
-      m_ultrasonicFL.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ||
-      m_ultrasonicBR.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ||
-      m_ultrasonicBL.get() >= UltrasonicConstants.ULTRASONIC_LIMIT ;
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {

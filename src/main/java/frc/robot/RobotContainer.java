@@ -29,6 +29,8 @@ import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.BendArmSubsystem;
 import frc.robot.subsystems.SlideArmSubsystem;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,6 +63,7 @@ public class RobotContainer {
   private final Command m_autoExitShort = new Auto_ExitCommunity_Short(m_drivetrain);
   private final Command m_autoExitLong = new Auto_ExitCommunity_Long(m_drivetrain);
 
+  private final UsbCamera m_armCam = CameraServer.startAutomaticCapture();
 
   public RobotContainer(Robot robot) {
     m_robot = robot;
