@@ -17,6 +17,7 @@ import frc.robot.commands.Auto_ScoreStartingPiece;
 //import frc.robot.commands.Automatic_Highgoal;
 //import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.Balance;
+import frc.robot.commands.BendArm;
 //import frc.robot.commands.BalancePID;
 import frc.robot.commands.BendArmPID;
 import frc.robot.commands.BrakeCommand;
@@ -120,9 +121,13 @@ public class RobotContainer {
   }
 
   public void operatorSetup(CommandXboxController controller) {
+    /* 
     controller.povUp().whileTrue(new BendArmPID(m_armBendSubsystem, 100.0, false));
     controller.povDown().whileTrue(new BendArmPID(m_armBendSubsystem, 0.0, false));
-
+    */
+    controller.povUp().whileTrue(new BendArm(m_armBendSubsystem, -0.3, false));
+    controller.povDown().whileTrue(new BendArm(m_armBendSubsystem, 0.3, false));
+    
     controller.leftBumper().whileTrue(new ActuateClaw(0, m_clawSubsystem));
     controller.rightBumper().whileTrue(new ActuateClaw(1, m_clawSubsystem));
 

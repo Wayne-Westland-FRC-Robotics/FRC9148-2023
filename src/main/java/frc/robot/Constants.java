@@ -72,8 +72,8 @@ public final class Constants {
     public final static double kVArm = 0.0001291;
     public final static double kAArm = 0.019404;
 
-    public final static double kPArm = 0.077941;
-    public final static double kDArm = 0.02093;
+    public final static double kPArm = 0.11645;
+    public final static double kDArm = 0.058875;
     // pid balance
     public final static double kSBal = 0;
     public final static double kVBal = 0;
