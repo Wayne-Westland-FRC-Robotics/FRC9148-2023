@@ -15,7 +15,13 @@ public class Auto_Charge_Side extends SequentialCommandGroup {
   private final DrivetrainSubsystem m_drive;
   private final Robot m_robot;
   private final int m_side; // 0: Left, 1: Right
-  /** Creates a new Auto_Charge_Side. */
+  /**
+   * Autonomous command for driving onto the charging pad when NOT in the middle.
+   * @param drive Subsystem for changing the drive wheel speed.
+   * @param robot Robot instance.
+   * @param side Specifies the side of the community that the robot starts on.
+   * (0: Left, 1: Right) (Relative to the driver's station)
+   */
   public Auto_Charge_Side(DrivetrainSubsystem drive, Robot robot, int side) {
     m_drive = drive;
     m_robot = robot;
@@ -25,7 +31,7 @@ public class Auto_Charge_Side extends SequentialCommandGroup {
       new TankDrive(m_drive, ()->0.2, ()->0.2).withTimeout(1),
       new TankDrive(m_drive, ()->(m_side==0 ? 0.2 : 0.5), ()->(m_side==0 ? 0.5 : 0.2)),withTimeout(1),
       new TankDrive(m_drive, ()->0.2, ()->0.2).withTimeout(1),
-      new BalanceNoUltra(m_drive, m_robot).withTimeout(4)
+      new Balance(m_drive, m_robot).withTimeout(4)
     );
   }
 }

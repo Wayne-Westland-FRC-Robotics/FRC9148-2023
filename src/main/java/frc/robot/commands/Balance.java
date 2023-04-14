@@ -9,12 +9,12 @@ import frc.robot.Robot;
 import frc.robot.Constants.ControlSystemConstants;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class BalanceNoUltra extends CommandBase {
+public class Balance extends CommandBase {
   private final DrivetrainSubsystem m_drivetrain;
   private final Robot m_robot;
   private double tilt;
   
-  public BalanceNoUltra(DrivetrainSubsystem drivetrain, Robot robot) {
+  public Balance(DrivetrainSubsystem drivetrain, Robot robot) {
     m_drivetrain = drivetrain;
     m_robot = robot;
 
@@ -36,11 +36,6 @@ public class BalanceNoUltra extends CommandBase {
     } else if (tilt <= -ControlSystemConstants.TILT_BOUND) {
       m_drivetrain.tankDrive(0.1);
     }
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.

@@ -20,6 +20,13 @@ public class Auto_Double_Score extends SequentialCommandGroup {
   private final BendArmSubsystem m_armBend;
   private final SlideArmSubsystem m_armSlide;
   private final ClawSubsystem m_armClaw;
+  /**
+   * Score two game pieces from side of community.
+   * @param drive Subsystem for changing the drive wheel speed.
+   * @param armBend Subsystem for changing the arm angle.
+   * @param armSlide Subsystem for extending/retracting the arm.
+   * @param armClaw Subsystem for actuating the grabber.
+   */
   public Auto_Double_Score(DrivetrainSubsystem drive, BendArmSubsystem armBend, SlideArmSubsystem armSlide, ClawSubsystem armClaw) {
     m_drive = drive;
     m_armBend = armBend;

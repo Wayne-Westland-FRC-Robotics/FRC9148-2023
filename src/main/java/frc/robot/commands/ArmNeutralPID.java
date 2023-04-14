@@ -21,7 +21,10 @@ public class ArmNeutralPID extends CommandBase {
     0,
     ControlSystemConstants.kDArm
   );
-
+  /**
+   * PID control to maintain the angle of the arm.
+   * @param armSub Subsystem for changing the arm angle.
+   */
   public ArmNeutralPID(BendArmSubsystem armSub) {
     m_armSub = armSub;
     addRequirements(m_armSub);

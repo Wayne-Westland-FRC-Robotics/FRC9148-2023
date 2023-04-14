@@ -9,6 +9,10 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class BrakeCommand extends CommandBase {
   private final DrivetrainSubsystem m_drivetrain;
+  /**
+   * Enables brakes for the driving motors when running
+   * @param drivetrain Subsystem for changing the drive wheel speed.
+   */
   public BrakeCommand(DrivetrainSubsystem drivetrain) {
     m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
@@ -23,6 +27,6 @@ public class BrakeCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //m_drivetrain.stopBrake();
+    m_drivetrain.stopBrake();
   }
 }

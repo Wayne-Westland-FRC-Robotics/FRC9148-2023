@@ -10,6 +10,11 @@ import frc.robot.subsystems.ClawSubsystem;
 public class ActuateClaw extends CommandBase {
   private final double m_actuationType;
   private final ClawSubsystem m_clawSubsystem;
+  /**
+   * Actuates the grabber.
+   * @param actuationType Whether to open/close the grabber (0: Opens, 1: Closes)
+   * @param clawSubsystem Subsystem for actuating the grabber.
+   */
   public ActuateClaw(double actuationType, ClawSubsystem clawSubsystem) {
     m_actuationType = actuationType;
     m_clawSubsystem = clawSubsystem;

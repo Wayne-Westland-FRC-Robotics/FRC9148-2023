@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.BendArmSubsystem;
 import frc.robot.subsystems.SlideArmSubsystem;
 
@@ -15,13 +14,17 @@ import frc.robot.subsystems.SlideArmSubsystem;
 public class Automatic_End_Highgoal extends SequentialCommandGroup {
   private final BendArmSubsystem m_armBend;
   private final SlideArmSubsystem m_slideArm;
-
+  /**
+   * Complete the "Automatic_Highgoal" sequence.
+   * @param armBend Subsystem for changing the arm angle.
+   * @param armSlide Subsystem for extending/retracting the arm.
+   */
   public Automatic_End_Highgoal(BendArmSubsystem armBend, SlideArmSubsystem slideArm) {
     m_armBend = armBend;
     m_slideArm = slideArm;
     addCommands(
-      new BendToAngle(m_armBend, ArmConstants.ARM_BEND_UPPER_LIMIT),
-      new SlideArm(0.1, m_slideArm).withTimeout(0.5)
+      new BendArmPID(m_armBend, 90.0, true),
+      new SlideArm(0.5, m_slideArm).withTimeout(0.25)
     );
   }
 }

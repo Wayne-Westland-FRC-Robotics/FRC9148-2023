@@ -14,6 +14,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ClawSubsystem extends SubsystemBase {
   private final DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 1, 0);
   //private final Solenoid asdf = new Solenoid(null, 0);
+  /**
+   * Subsystem for actuating the grabber.
+   */
+  public ClawSubsystem() {}
 
   public void closeClaw() {
     solenoid.set(Value.kForward);

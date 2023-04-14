@@ -16,9 +16,8 @@ import frc.robot.commands.Auto_ScoreStartingPiece;
 //import frc.robot.commands.Automatic_End_Highgoal;
 //import frc.robot.commands.Automatic_Highgoal;
 //import frc.robot.commands.BalanceCommand;
-import frc.robot.commands.BalanceNoUltra;
+import frc.robot.commands.Balance;
 //import frc.robot.commands.BalancePID;
-import frc.robot.commands.BendArm;
 import frc.robot.commands.BendArmPID;
 import frc.robot.commands.BrakeCommand;
 //import frc.robot.commands.BendArmPID;
@@ -92,7 +91,7 @@ public class RobotContainer {
     m_autoType.addOption("Mobility (Short)", m_autoExitShort);
 
     m_autoType.addOption("Arm bump", new SequentialCommandGroup(
-      new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem).withTimeout(1),
+      new BendArmPID(m_armBendSubsystem, 10.0, true).withTimeout(1),
       new Auto_ExitCommunity_Long(m_drivetrain)
     ));
 
@@ -109,7 +108,7 @@ public class RobotContainer {
   public void configureBindings(boolean isDouble) {
     //m_drController.povLeft().whileTrue(new BalanceCommand(m_drivetrain, m_robot::getRobotTilt, m_robot::getUltra));
     m_drController.rightBumper().whileTrue(new BrakeCommand(m_drivetrain));
-    m_drController.b().whileTrue(new BalanceNoUltra(m_drivetrain, m_robot));
+    m_drController.b().whileTrue(new Balance(m_drivetrain, m_robot));
     //m_drController.x().toggleOnTrue(new Automatic_Highgoal(m_armBendSubsystem, m_armSlideSubystem, m_clawSubsystem));
     //m_drController.x().toggleOnFalse(new Automatic_End_Highgoal(m_armBendSubsystem, m_armSlideSubystem));
 
@@ -121,8 +120,8 @@ public class RobotContainer {
   }
 
   public void operatorSetup(CommandXboxController controller) {
-    controller.povUp().whileTrue(new BendArm(ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
-    controller.povDown().whileTrue(new BendArm(-ContainerConstants.ARM_BEND_SPEED, m_armBendSubsystem));
+    controller.povUp().whileTrue(new BendArmPID(m_armBendSubsystem, 100.0, false));
+    controller.povDown().whileTrue(new BendArmPID(m_armBendSubsystem, 0.0, false));
 
     controller.leftBumper().whileTrue(new ActuateClaw(0, m_clawSubsystem));
     controller.rightBumper().whileTrue(new ActuateClaw(1, m_clawSubsystem));

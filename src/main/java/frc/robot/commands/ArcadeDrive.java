@@ -13,6 +13,13 @@ public class ArcadeDrive extends CommandBase {
   private final DoubleSupplier m_leftSpeed;
   private final DoubleSupplier m_rightSpeed;
   private final DrivetrainSubsystem m_drivetrain;
+
+  /**
+   * Command for the arcade driving style.
+   * @param drivetrain Subsystem for changing the drive wheel speed.
+   * @param leftSpeed Speed for left side wheels.
+   * @param rightSpeed Speed for right side wheels.
+   */
   public ArcadeDrive(DrivetrainSubsystem drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
     m_leftSpeed = leftSpeed;
     m_rightSpeed = rightSpeed;

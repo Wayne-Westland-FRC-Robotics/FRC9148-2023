@@ -11,6 +11,11 @@ public class SlideArm extends CommandBase {
   private final Double m_speed;
   private final SlideArmSubsystem m_armSubsystem;
 
+  /**
+   * Command for extending/retracting the arm.
+   * @param speed Arm extension/retraction speed.
+   * @param armSubsystem Subsystem for extending/retracting the arm.
+   */
   public SlideArm(Double speed, SlideArmSubsystem armSubsystem) {
     m_speed = speed;
     m_armSubsystem = armSubsystem;

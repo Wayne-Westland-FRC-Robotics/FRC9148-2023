@@ -21,6 +21,9 @@ public class BendArmSubsystem extends SubsystemBase {
 
   public RelativeEncoder getEncoder() { return encoder; }
 
+  /**
+   * Subsystem for changing the arm angle.
+   */
   public BendArmSubsystem() {
     encoder.setPositionConversionFactor(ArmConstants.ARM_BEND_RADIUS_ENCODER);
     bendArmMotor.setIdleMode(IdleMode.kBrake);

@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.BendArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.SlideArmSubsystem;
@@ -18,6 +17,11 @@ public class Automatic_Highgoal extends SequentialCommandGroup {
   private final SlideArmSubsystem m_slideArm;
   private final ClawSubsystem m_claw;
 
+  /**
+   * Command for automatically running a sequence to score on the grid.
+   * @param armBend Subsystem for changing the arm angle.
+   * @param armSlide Subsystem for extending/retracting the arm.
+   */
   public Automatic_Highgoal(BendArmSubsystem armBend, SlideArmSubsystem slideArm, ClawSubsystem claw) {
     m_armBend = armBend;
     m_slideArm = slideArm;
@@ -25,7 +29,7 @@ public class Automatic_Highgoal extends SequentialCommandGroup {
     addCommands(
       new ActuateClaw(0, m_claw),
       new SlideArm(-0.1, m_slideArm).withTimeout(0.5),
-      new BendToAngle(m_armBend, ArmConstants.ARM_BEND_LOWER_LIMIT)
+      new BendArmPID(m_armBend, 0.0, true)
     );
   }
 }

@@ -18,6 +18,9 @@ public class SlideArmSubsystem extends SubsystemBase {
 
   private final RelativeEncoder encoder = extendArmMotor.getEncoder();
 
+  /**
+   * Subsystem for extending/retracting the arm.
+   */
   public SlideArmSubsystem() {
     extendArmMotor.setIdleMode(IdleMode.kBrake);
     extendArmMotor.setInverted(false);

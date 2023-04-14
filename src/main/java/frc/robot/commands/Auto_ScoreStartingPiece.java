@@ -18,6 +18,12 @@ public class Auto_ScoreStartingPiece extends SequentialCommandGroup {
   private final BendArmSubsystem m_armBend;
   private final SlideArmSubsystem m_armSlide;
   private final ClawSubsystem m_armClaw;
+  /**
+   * Autonomous command for scoring the game piece that starts in the grabber.
+   * @param armBend Subsystem for changing the arm angle.
+   * @param armSlide Subsystem for extending/retracting the arm.
+   * @param armClaw Subsystem for actuating the grabber. 
+   */
   public Auto_ScoreStartingPiece(BendArmSubsystem armBend, SlideArmSubsystem armSlide, ClawSubsystem armClaw) {
     m_armBend = armBend;
     m_armSlide = armSlide;

@@ -12,6 +12,10 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Auto_ExitCommunity_Short extends SequentialCommandGroup {
   private final DrivetrainSubsystem m_drivetrain;
+  /**
+   * Autonomous command for mobility on the shorter side of the community.
+   * @param drivetrain Subsystem for changing the drive wheel speed.
+   */
   public Auto_ExitCommunity_Short(DrivetrainSubsystem drivetrain) {
     m_drivetrain = drivetrain;
     addCommands(

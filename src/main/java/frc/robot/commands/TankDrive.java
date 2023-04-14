@@ -13,16 +13,17 @@ public class TankDrive extends CommandBase {
   private final DoubleSupplier m_leftSpeed;
   private final DoubleSupplier m_rightSpeed;
   private final DrivetrainSubsystem m_drivetrain;
+  /**
+   * Command for the tank driving style.
+   * @param drivetrain Subsystem for changing the drive wheel speed.
+   * @param leftSpeed Speed for left side wheels.
+   * @param rightSpeed Speed for right side wheels.
+   */
   public TankDrive(DrivetrainSubsystem drivetrain, DoubleSupplier leftSpeed, DoubleSupplier rightSpeed) {
     m_leftSpeed = leftSpeed;
     m_rightSpeed = rightSpeed;
     m_drivetrain = drivetrain;
     addRequirements(m_drivetrain);
-  }
-
-  @Override
-  public void initialize() {
-    // m_drivetrain.stopBrake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +35,5 @@ public class TankDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drivetrain.tankDrive(0.0);
-    // m_drivetrain.startBrake();
   }
 }

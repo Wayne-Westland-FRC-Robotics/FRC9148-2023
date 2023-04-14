@@ -32,6 +32,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final RelativeEncoder leftEncoder = leftMotor1.getEncoder();
   private final RelativeEncoder rightEncoder = leftMotor2.getEncoder();
 
+  /**
+   * Subsystem for changing the drive wheel speed.
+   */
   public DrivetrainSubsystem() {
     startBrake();
   }

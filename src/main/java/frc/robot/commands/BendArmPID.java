@@ -31,6 +31,13 @@ public class BendArmPID extends CommandBase {
     0,
     ControlSystemConstants.kDArm
   );
+  /**
+   * Command for changing the angle of the arm..
+   * @param moveArmSubsystem Subsystem for changing the arm angle.
+   * @param angle Specifies the desired angle to be bent to.
+   * @param endAtSetpoint Specifies whether or not the arm should stop when it reaches
+   * the desired angle.
+   */
   public BendArmPID(BendArmSubsystem moveArmSubsystem, Double angle, Boolean endAtSetpoint) {
     m_moveArmSubsystem = moveArmSubsystem;
     m_angle = angle;
